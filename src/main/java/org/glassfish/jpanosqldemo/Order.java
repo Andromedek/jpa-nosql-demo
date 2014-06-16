@@ -43,6 +43,7 @@ package org.glassfish.jpanosqldemo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -50,6 +51,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
+
 import org.eclipse.persistence.nosql.annotations.DataFormatType;
 import org.eclipse.persistence.nosql.annotations.Field;
 import org.eclipse.persistence.nosql.annotations.NoSql;
@@ -62,104 +64,105 @@ import org.eclipse.persistence.nosql.annotations.NoSql;
 @NoSql(dataFormat = DataFormatType.MAPPED)
 public class Order implements Serializable {
 
-    @Id // Use generated OID (UUID) from Mongo.
-    @GeneratedValue
-    @Field(name = "_id")
-    private String id;
-    private String description;
-    @ElementCollection
-    private List<OrderLine> orderLines = new ArrayList<OrderLine>();
-    private double totalCost = 0;
-    @Version
-    private long version;
-    // A nested embeddable value is stored as Embedded.
-    @Embedded
-    private Address billingAddress;
-    @Embedded
-    private Address shippingAddress;
-    // Relationships are supported, the id is stored as a foreign key,
-    // for OneToMany a collection of ids would be stored.
-    @ManyToOne
-    private Customer customer;
+	private static final long serialVersionUID = 1L;
 
-    public String getId() {
-        return id;
-    }
+	@Id
+	// Use generated OID (UUID) from Mongo.
+	@GeneratedValue
+	@Field(name = "_id")
+	private String id;
+	private String description;
+	@ElementCollection
+	private List<OrderLine> orderLines = new ArrayList<OrderLine>();
+	private double totalCost = 0;
+	@Version
+	private long version;
+	// A nested embeddable value is stored as Embedded.
+	@Embedded
+	private Address billingAddress;
+	@Embedded
+	private Address shippingAddress;
+	// Relationships are supported, the id is stored as a foreign key,
+	// for OneToMany a collection of ids would be stored.
+	@ManyToOne
+	private Customer customer;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public long getVersion() {
-        return version;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setVersion(long version) {
-        this.version = version;
-    }
+	public long getVersion() {
+		return version;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setVersion(long version) {
+		this.version = version;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public double getTotalCost() {
-        return totalCost;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setTotalCost(double totalCost) {
-        this.totalCost = totalCost;
-    }
+	public double getTotalCost() {
+		return totalCost;
+	}
 
-    public List<OrderLine> getOrderLines() {
-        return orderLines;
-    }
+	public void setTotalCost(double totalCost) {
+		this.totalCost = totalCost;
+	}
 
-    public void setOrderLines(List<OrderLine> orderLines) {
-        this.orderLines = orderLines;
-    }
+	public List<OrderLine> getOrderLines() {
+		return orderLines;
+	}
 
-    public Customer getCustomer() {
-        return customer;
-    }
+	public void setOrderLines(List<OrderLine> orderLines) {
+		this.orderLines = orderLines;
+	}
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
+	public Customer getCustomer() {
+		return customer;
+	}
 
-    public Address getBillingAddress() {
-        return billingAddress;
-    }
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 
-    public void setBillingAddress(Address billingAddress) {
-        this.billingAddress = billingAddress;
-    }
+	public Address getBillingAddress() {
+		return billingAddress;
+	}
 
-    public Address getShippingAddress() {
-        return shippingAddress;
-    }
+	public void setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
+	}
 
-    public void setShippingAddress(Address shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
+	public Address getShippingAddress() {
+		return shippingAddress;
+	}
 
-    /**
-     * Add the order line to the order, and set the back reference and update
-     * the order cost.
-     */
-    public void addOrderLine(OrderLine orderLine) {
-        getOrderLines().add(orderLine);
-        orderLine.setLineNumber(getOrderLines().size());
-        setTotalCost(getTotalCost() + orderLine.getCost());
-    }
+	public void setShippingAddress(Address shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
 
-    @Override
-    public String toString() {
-        return "Order(" + description + ", " + totalCost + ")";
-    }
+	/**
+	 * Add the order line to the order, and set the back reference and update
+	 * the order cost.
+	 */
+	public void addOrderLine(OrderLine orderLine) {
+		getOrderLines().add(orderLine);
+		orderLine.setLineNumber(getOrderLines().size());
+		setTotalCost(getTotalCost() + orderLine.getCost());
+	}
+
+	@Override
+	public String toString() {
+		return "Order(" + description + ", " + totalCost + ")";
+	}
 }
-
-

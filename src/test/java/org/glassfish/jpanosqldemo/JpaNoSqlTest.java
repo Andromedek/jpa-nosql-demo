@@ -70,7 +70,7 @@ public class JpaNoSqlTest {
 
 	@AfterClass
 	public static void tearDownClass() {
-		cleanDatabase();
+//		cleanDatabase();
 	}
 
 	private static void cleanDatabase() {

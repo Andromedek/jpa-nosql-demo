@@ -41,7 +41,9 @@
 package org.glassfish.jpanosqldemo;
 
 import java.io.Serializable;
+
 import javax.persistence.Embeddable;
+
 import org.eclipse.persistence.nosql.annotations.DataFormatType;
 import org.eclipse.persistence.nosql.annotations.NoSql;
 
@@ -52,40 +54,42 @@ import org.eclipse.persistence.nosql.annotations.NoSql;
 @NoSql(dataFormat = DataFormatType.MAPPED)
 public class Address implements Serializable {
 
-    private String street;
-    private String city;
-    private String state;
-    private String zip;
+	private static final long serialVersionUID = 1L;
 
-    public String getStreet() {
-        return street;
-    }
+	private String street;
+	private String city;
+	private String state;
+	private String zip;
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
+	public String getStreet() {
+		return street;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public void setStreet(String street) {
+		this.street = street;
+	}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public String getZip() {
-        return zip;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
 }
